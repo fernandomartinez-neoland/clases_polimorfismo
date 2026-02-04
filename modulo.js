@@ -83,14 +83,18 @@ class Klarna extends Pagador{
 
 
 function metodo_pago(MP){
+    // la funcion recibe el arreglo de objetos y luego lo recorre con un forEach
     MP.forEach((item, index)=>{
+        // item representa cada objeto dentro del recorrido y como cada objeto tiene el metodo "pagar" entonces este metodo se ejecuta por si solo en cada iteración
         item.pagar();
     })
 }
 
-// el polimorfismo conciste en los casos en donde los hijos sustituyen el metodo del padre para su uso conveniente
-// aunque 
+// el polimorfismo se refiere a los casos en donde los hijos sustituyen el metodo del padre para su uso conveniente
+// aunque el metodo del padre y del hijo tengan el mismo nombre, ambos ejecutan acciones diferentes 
+// en este caso tanto el padre como los hijos usan el metodo "pagar" para ejecutarlos todos de manera dinamica evitamos llamar a cada uno y ejecutar su metodo, mas bien creamos un arreglo en donde encerramos a todos los objetos y luego los recorremos con un forEach para asi ejecutar dinamicamente el metodo correspondiente que en este caso es el "pagar"
 
 const array_pago=[new Strype, new Paypal, new Klarna, new Pagador];
 
+// llamamos la funcion "metodo_pago" para enviarle como parametro el arreglo de objetos "array_pago", que contiene la creacion de cada clase de objeto (new Paypal, new Stripe, etc)
 metodo_pago(array_pago)
