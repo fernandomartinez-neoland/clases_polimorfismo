@@ -60,15 +60,30 @@ iniciarCombate(miEjercito);
 class Pagador{
     // al colocarle el "#" auna variable o metodo estamos indicando que a esta variable o metodo no puede ser accedida fuera de la clase en la que fue creada, es decir que si luego creamos un objeto con la clase, de igual manera tampoco podremos acceder a lo que tenga ese "#" antes del nombre
     #privado=false;
+
     publico=true;
     pagar(){
-        console.log("pago ORIGINAL en efectivo", this.#privado)
+        console.log("pago ORIGINAL en efectivo", this.publico)
     }
+
+    // el get permite que desde este metodo podamos acceder a una variable privada desde fuera de la clase en donde fue creada, esto se hace con el objetivo de mantener un control estricto sobre lo privado
+    get privada(){
+     return this.#privado;
+    }
+
+    // el set nos permite manipular la variable privada desde afuera, nuevamente esto se hace con el objetivo de tener un control estricto sobre lo privado
+    set no_privado(booleano){
+        this.#privado=booleano;
+        console.log(this.#privado)
+        return;
+    }
+
 }
 
 class Strype extends Pagador{
     pagar(){
-        this.publico;
+        // para acceder a un metodo "get" no es necesario los parentesis, se accede como si fuese una variable comun y corriente (siendo que este es un metodo en este caso)
+        console.log(`esta es la variable privada ${this.privada}`);
         console.log("pago con Strype")
     }
 }
@@ -81,6 +96,9 @@ class Paypal extends Pagador{
 
 class Klarna extends Pagador{
     pagar(){
+
+        // para enviar un parametro a un metodo "set" es usandolo como si se tratase de una variable y no como un metodo, es decir se le dice "=valor" en vez de (valor) para que este perciba los valores
+        this.no_privado=true;
         console.log("pago con Klarna")
     }
 }
@@ -102,3 +120,18 @@ const array_pago=[new Strype, new Paypal, new Klarna, new Pagador];
 
 // llamamos la funcion "metodo_pago" para enviarle como parametro el arreglo de objetos "array_pago", que contiene la creacion de cada clase de objeto (new Paypal, new Stripe, etc)
 metodo_pago(array_pago)
+
+
+////////////////////////////////////////////////////////////////
+
+class get_set{
+
+    set setter(valor){
+        this._setter = valor;
+    }
+
+    get getter(){
+        return "valor"
+    }
+
+}
