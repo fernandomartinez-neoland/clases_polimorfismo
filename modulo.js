@@ -58,13 +58,17 @@ iniciarCombate(miEjercito);
 //////////////////////////////////////////////////////////
 
 class Pagador{
+    // al colocarle el "#" auna variable o metodo estamos indicando que a esta variable o metodo no puede ser accedida fuera de la clase en la que fue creada, es decir que si luego creamos un objeto con la clase, de igual manera tampoco podremos acceder a lo que tenga ese "#" antes del nombre
+    #privado=false;
+    publico=true;
     pagar(){
-        console.log("pago ORIGINAL en efectivo")
+        console.log("pago ORIGINAL en efectivo", this.#privado)
     }
 }
 
 class Strype extends Pagador{
     pagar(){
+        this.publico;
         console.log("pago con Strype")
     }
 }
